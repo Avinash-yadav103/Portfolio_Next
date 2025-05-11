@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
+
+/* Default theme variables */
+:root {
+  --primary-color: #ef4444;
+  --primary-hover: #dc2626;
+  --primary-glow: rgba(239, 68, 68, 0.5);
+  --secondary-color: #1f2937;
+  --text-color: #ffffff;
+  --background-color: #000000;
+  --grid-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Optimus Prime theme */
+[data-theme="optimus"] {
+  --primary-color: #ef4444;
+  --primary-hover: #dc2626;
+  --primary-glow: rgba(239, 68, 68, 0.5);
+  --secondary-color: #1e40af;
+  --text-color: #ffffff;
+  --background-color: #000000;
+  --grid-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Bumblebee theme */
+[data-theme="bumblebee"] {
+  --primary-color: #facc15;
+  --primary-hover: #eab308;
+  --primary-glow: rgba(250, 204, 21, 0.5);
+  --secondary-color: #1f2937;
+  --text-color: #ffffff;
+  --background-color: #000000;
+  --grid-color: rgba(250, 204, 21, 0.1);
+}
+
+body {
+  color: var(--text-color);
+  background: var(--background-color);
+  font-family: var(--font-inter);
+}
+
+/* Transformers-themed styles */
+
+/* Grid pattern background */
+.bg-grid-pattern {
+  background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Glowing effect for elements */
+.glow {
+  box-shadow: 0 0 15px var(--primary-glow);
+}
+
+/* Transformers-style text */
+.transformer-text {
+  text-shadow: 0 0 5px var(--primary-color), 0 0 10px var(--primary-color);
+  letter-spacing: 2px;
+}
+
+/* Pulsing animation */
+@keyframes pulse {
+  0% {
+    opacity: 0.8;
+    box-shadow: 0 0 5px var(--primary-glow);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 20px var(--primary-glow);
+  }
+  100% {
+    opacity: 0.8;
+    box-shadow: 0 0 5px var(--primary-glow);
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Progress bar animation */
+@keyframes progress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.animate-progress {
+  animation: progress 4s forwards;
+}
+
+/* Typewriter text animation */
+.typewriter-text {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--primary-color);
+  animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blink-caret {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--primary-color);
+  }
+}
+
+/* Glitch animation */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-5px, 5px);
+  }
+  40% {
+    transform: translate(-5px, -5px);
+  }
+  60% {
+    transform: translate(5px, 5px);
+  }
+  80% {
+    transform: translate(5px, -5px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.animate-glitch {
+  animation: glitch 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+/* Delay animation classes */
+.delay-150 {
+  animation-delay: 150ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+/* Font classes */
+.font-orbitron {
+  font-family: var(--font-orbitron);
+}
