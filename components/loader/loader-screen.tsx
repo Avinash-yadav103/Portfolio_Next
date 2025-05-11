@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { gsap } from "gsap"
 import GlitchEffect from "./glitch-effect"
@@ -13,18 +13,9 @@ export default function LoaderScreen() {
   const rightDoorRef = useRef<HTMLDivElement>(null)
   const topDoorRef = useRef<HTMLDivElement>(null)
   const faceContainerRef = useRef<HTMLDivElement>(null)
-  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    setIsMounted(true)
-
-    // Only run animations after component is mounted
-    if (!isMounted) return
-
     const tl = gsap.timeline()
-
-    // Check if refs are available before using them
-    if (!leftDoorRef.current || !rightDoorRef.current || !topDoorRef.current || !faceContainerRef.current) return
 
     // Initial state for doors
     gsap.set(leftDoorRef.current, { x: "-100%" })
@@ -46,12 +37,8 @@ export default function LoaderScreen() {
         },
         "-=0.5",
       )
-
-    // Only target triangle parts if they exist
-    const triangleParts = document.querySelectorAll(".triangle-part")
-    if (triangleParts.length > 0) {
-      tl.from(
-        triangleParts,
+      .from(
+        ".triangle-part",
         {
           scale: 0,
           opacity: 0,
@@ -61,11 +48,7 @@ export default function LoaderScreen() {
         },
         "-=0.3",
       )
-    }
-
-    // Only animate text if it exists
-    if (textRef.current) {
-      tl.to(
+      .to(
         textRef.current,
         {
           opacity: 1,
@@ -75,13 +58,12 @@ export default function LoaderScreen() {
         },
         "-=0.5",
       )
-    }
 
     // Cleanup
     return () => {
       tl.kill()
     }
-  }, [isMounted])
+  }, [])
 
   return (
     <motion.div

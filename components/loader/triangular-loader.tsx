@@ -1,53 +1,41 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 
 export default function TriangularLoader() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    setIsMounted(true)
-
-    // Only run animations after component is mounted
-    if (!isMounted) return
-
     const tl = gsap.timeline({
       repeat: -1,
       repeatDelay: 0.5,
     })
 
-    // Check if elements exist before animating
-    const triangleParts = document.querySelectorAll(".triangle-part")
-    const triangleCenter = document.querySelector(".triangle-center")
-
-    if (triangleParts.length > 0) {
-      tl.to(triangleParts, {
-        boxShadow: "0 0 20px #ff0000, 0 0 40px #ff0000",
-        duration: 0.8,
-        stagger: 0.2,
-      }).to(triangleParts, {
+    // Pulse animation for each triangle
+    tl.to(".triangle-part", {
+      boxShadow: "0 0 20px #ff0000, 0 0 40px #ff0000",
+      duration: 0.8,
+      stagger: 0.2,
+    })
+      .to(".triangle-part", {
         boxShadow: "0 0 5px #ff0000",
         duration: 0.8,
         stagger: 0.2,
       })
-    }
-
-    if (triangleCenter) {
-      tl.to(triangleCenter, {
+      .to(".triangle-center", {
         boxShadow: "0 0 30px #ff0000, 0 0 50px #ff0000",
         duration: 0.5,
-      }).to(triangleCenter, {
+      })
+      .to(".triangle-center", {
         boxShadow: "0 0 10px #ff0000",
         duration: 0.5,
       })
-    }
 
     return () => {
       tl.kill()
     }
-  }, [isMounted])
+  }, [])
 
   return (
     <div ref={containerRef} className="relative w-64 h-64">

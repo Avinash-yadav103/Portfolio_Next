@@ -10,7 +10,6 @@ function TransformingCubes() {
   const groupRef = useRef<THREE.Group>(null)
   const [assembled, setAssembled] = useState(true)
   const [animating, setAnimating] = useState(false)
-  const [isMounted, setIsMounted] = useState(false)
 
   // Create refs for individual cubes
   const cubes = useRef<THREE.Mesh[]>([])
@@ -23,8 +22,6 @@ function TransformingCubes() {
 
   // Initialize cube positions
   useEffect(() => {
-    setIsMounted(true)
-
     cubePositions.current = []
     cubeRotations.current = []
 
@@ -45,8 +42,6 @@ function TransformingCubes() {
 
   // Toggle between assembled and disassembled states
   useEffect(() => {
-    if (!isMounted) return
-
     const toggleInterval = setInterval(() => {
       if (!animating) {
         setAnimating(true)
@@ -55,11 +50,11 @@ function TransformingCubes() {
     }, 8000)
 
     return () => clearInterval(toggleInterval)
-  }, [animating, isMounted])
+  }, [animating])
 
   // Handle animation between states
   useEffect(() => {
-    if (cubes.current.length === 0 || !animating || !isMounted) return
+    if (cubes.current.length === 0 || !animating) return
 
     const timeline = gsap.timeline({
       onComplete: () => {
@@ -130,7 +125,7 @@ function TransformingCubes() {
     return () => {
       timeline.kill()
     }
-  }, [assembled, animating, isMounted])
+  }, [assembled, animating])
 
   // Slow rotation of the entire group
   useFrame((state) => {
@@ -187,16 +182,6 @@ function TransformingCubes() {
 }
 
 export default function TransformingCube() {
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
-  if (!isMounted) {
-    return <div className="w-full h-full bg-black"></div>
-  }
-
   return (
     <div className="w-full h-full">
       <Canvas camera={{ position: [0, 0, 15], fov: 50 }}>

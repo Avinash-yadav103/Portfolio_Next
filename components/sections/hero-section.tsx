@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { gsap } from "gsap"
 import { ArrowDown } from "lucide-react"
@@ -11,36 +11,26 @@ import TransformingButton from "@/components/ui/transforming-button"
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
-  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    setIsMounted(true)
-
-    // Only run GSAP animations after component is mounted
-    if (!isMounted) return
+    if (!sectionRef.current || !textRef.current) return
 
     const tl = gsap.timeline()
 
-    // Make sure refs are available before using them
-    if (textRef.current) {
-      const elements = textRef.current.querySelectorAll(".gsap-hero-anim")
-      if (elements.length > 0) {
-        tl.from(elements, {
-          y: 50,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power3.out",
-          delay: 0.5,
-        })
-      }
-    }
+    tl.from(textRef.current.querySelectorAll(".gsap-hero-anim"), {
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      stagger: 0.2,
+      ease: "power3.out",
+      delay: 0.5,
+    })
 
     // Cleanup
     return () => {
       tl.kill()
     }
-  }, [isMounted])
+  }, [])
 
   return (
     <section

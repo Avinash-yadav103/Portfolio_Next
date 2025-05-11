@@ -1,19 +1,14 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import Image from "next/image"
 import { gsap } from "gsap"
 
 export default function GlitchEffect() {
   const containerRef = useRef<HTMLDivElement>(null)
   const imageRef = useRef<HTMLImageElement>(null)
-  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    setIsMounted(true)
-
-    // Only run animations after component is mounted
-    if (!isMounted) return
     if (!containerRef.current || !imageRef.current) return
 
     const container = containerRef.current
@@ -100,7 +95,7 @@ export default function GlitchEffect() {
       if (container.contains(glitch1)) container.removeChild(glitch1)
       if (container.contains(glitch2)) container.removeChild(glitch2)
     }
-  }, [isMounted])
+  }, [])
 
   return (
     <div ref={containerRef} className="relative w-full h-full">
