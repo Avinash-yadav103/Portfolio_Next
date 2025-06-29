@@ -167,3 +167,51 @@ body {
 .font-orbitron {
   font-family: var(--font-orbitron);
 }
+
+/* Additional animations for intro page */
+@keyframes scan-line {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100vw);
+  }
+}
+
+.scan-line {
+  animation: scan-line 2s linear infinite;
+}
+
+@keyframes data-stream {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.data-stream {
+  animation: data-stream 3s linear infinite;
+}
+
+/* Cyberpunk glow effect */
+.cyber-glow {
+  box-shadow: 
+    0 0 5px #9333ea,
+    0 0 10px #9333ea,
+    0 0 15px #9333ea,
+    0 0 20px #9333ea;
+}
+
+/* Matrix-style text */
+.matrix-text {
+  font-family: 'Courier New', monospace;
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+}

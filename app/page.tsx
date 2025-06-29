@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import IntroPage from "@/components/intro/intro-page"
 import LoaderScreen from "@/components/loader/loader-screen"
 import Navbar from "@/components/navigation/navbar"
 import HeroSection from "@/components/sections/hero-section"
@@ -17,19 +18,23 @@ import TransformerBot from "@/components/chat/transformer-bot"
 import { AnimatePresence } from "framer-motion"
 
 export default function Home() {
-  const [loading, setLoading] = useState(true)
+  const [showIntro, setShowIntro] = useState(true)
+  const [loading, setLoading] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
     setIsMounted(true)
-
-    // Simulate loading time (you can replace with actual asset loading)
-    const timer = setTimeout(() => {
-      setLoading(false)
-    }, 6000)
-
-    return () => clearTimeout(timer)
   }, [])
+
+  const handleIntroComplete = () => {
+    setShowIntro(false)
+    setLoading(true)
+
+    // After intro, show loader for a short time
+    setTimeout(() => {
+      setLoading(false)
+    }, 3000)
+  }
 
   // Don't render anything until mounted to prevent hydration issues
   if (!isMounted) {
@@ -38,8 +43,10 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen bg-black text-white overflow-hidden">
-      <AnimatePresence>
-        {loading ? (
+      <AnimatePresence mode="wait">
+        {showIntro ? (
+          <IntroPage key="intro" onComplete={handleIntroComplete} />
+        ) : loading ? (
           <LoaderScreen key="loader" />
         ) : (
           <>
