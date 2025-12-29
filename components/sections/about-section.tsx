@@ -36,8 +36,14 @@ export default function AboutSection() {
     <section ref={sectionRef} id="about" className="py-20 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-500/5 rounded-full blur-3xl"></div>
+        <div 
+          className="absolute top-0 right-0 w-64 h-64 rounded-full blur-3xl"
+          style={{ backgroundColor: 'var(--primary-glow)', opacity: 0.05 }}
+        />
+        <div 
+          className="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl"
+          style={{ backgroundColor: 'var(--primary-glow)', opacity: 0.05 }}
+        />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
@@ -51,24 +57,30 @@ export default function AboutSection() {
         >
           {/* Image */}
           <motion.div variants={itemVariants} className="relative">
-            <div className="relative w-full h-[400px] rounded-lg overflow-hidden border-2 border-red-500/30 transform rotate-3 transition-transform hover:rotate-0 duration-300">
+            <div 
+              className="relative w-full h-[400px] rounded-lg overflow-hidden border-2 transform rotate-3 transition-transform hover:rotate-0 duration-300"
+              style={{ borderColor: 'var(--border-color)' }}
+            >
               <Image src="/placeholder.svg?height=400&width=400" alt="Profile" fill className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             </div>
-            <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-red-500/10 rounded-full blur-2xl"></div>
+            <div 
+              className="absolute -bottom-4 -right-4 w-32 h-32 rounded-full blur-2xl"
+              style={{ backgroundColor: 'var(--primary-glow)', opacity: 0.1 }}
+            />
           </motion.div>
 
           {/* Content */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-2xl font-orbitron font-bold mb-4">
-              Transforming <span className="text-red-500">Ideas</span> into Digital Reality
+            <h3 className="text-2xl font-orbitron font-bold mb-4" style={{ color: 'var(--text-heading)' }}>
+              Transforming <span style={{ color: 'var(--primary-color)' }}>Ideas</span> into Digital Reality
             </h3>
-            <p className="text-gray-300 mb-6">
+            <p className="mb-6" style={{ color: 'var(--text-muted)' }}>
               I am a passionate frontend developer and designer with a strong focus on creating immersive and
               interactive web experiences. With expertise in modern web technologies and a keen eye for design, I bring
               creative concepts to life through clean code and intuitive user interfaces.
             </p>
-            <p className="text-gray-300 mb-6">
+            <p className="mb-6" style={{ color: 'var(--text-muted)' }}>
               My journey in web development began 5 years ago, and since then, I've worked on various projects ranging
               from corporate websites to interactive web applications. I'm constantly exploring new technologies and
               techniques to enhance my skills and deliver cutting-edge solutions.
@@ -76,24 +88,47 @@ export default function AboutSection() {
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 mb-8">
-              <div className="text-center p-4 border border-red-500/30 rounded-lg bg-black/50 backdrop-blur-sm">
-                <h4 className="text-red-500 text-2xl font-bold font-orbitron">5+</h4>
-                <p className="text-gray-400 text-sm">Years Experience</p>
+              <div 
+                className="text-center p-4 rounded-lg backdrop-blur-sm"
+                style={{ 
+                  border: '1px solid var(--border-color)', 
+                  backgroundColor: 'var(--background-glass)' 
+                }}
+              >
+                <h4 className="text-2xl font-bold font-orbitron" style={{ color: 'var(--primary-color)' }}>5+</h4>
+                <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Years Experience</p>
               </div>
-              <div className="text-center p-4 border border-red-500/30 rounded-lg bg-black/50 backdrop-blur-sm">
-                <h4 className="text-red-500 text-2xl font-bold font-orbitron">20+</h4>
-                <p className="text-gray-400 text-sm">Projects Completed</p>
+              <div 
+                className="text-center p-4 rounded-lg backdrop-blur-sm"
+                style={{ 
+                  border: '1px solid var(--border-color)', 
+                  backgroundColor: 'var(--background-glass)' 
+                }}
+              >
+                <h4 className="text-2xl font-bold font-orbitron" style={{ color: 'var(--primary-color)' }}>20+</h4>
+                <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Projects Completed</p>
               </div>
-              <div className="text-center p-4 border border-red-500/30 rounded-lg bg-black/50 backdrop-blur-sm">
-                <h4 className="text-red-500 text-2xl font-bold font-orbitron">10+</h4>
-                <p className="text-gray-400 text-sm">Happy Clients</p>
+              <div 
+                className="text-center p-4 rounded-lg backdrop-blur-sm"
+                style={{ 
+                  border: '1px solid var(--border-color)', 
+                  backgroundColor: 'var(--background-glass)' 
+                }}
+              >
+                <h4 className="text-2xl font-bold font-orbitron" style={{ color: 'var(--primary-color)' }}>10+</h4>
+                <p className="text-sm" style={{ color: 'var(--text-muted)' }}>Happy Clients</p>
               </div>
             </div>
 
             {/* Download CV button */}
             <Link
               href="/resume.pdf"
-              className="inline-flex items-center px-6 py-3 bg-red-500 text-white font-medium rounded-md hover:bg-red-600 transition-colors shadow-[0_0_15px_rgba(239,68,68,0.5)]"
+              className="inline-flex items-center px-6 py-3 font-medium rounded-md transition-colors"
+              style={{ 
+                backgroundColor: 'var(--primary-color)', 
+                color: 'var(--text-color)',
+                boxShadow: 'var(--shadow-glow)'
+              }}
             >
               <Download size={18} className="mr-2" />
               Download CV

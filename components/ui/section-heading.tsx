@@ -16,15 +16,17 @@ export default function SectionHeading({ title, subtitle }: SectionHeadingProps)
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.5 }}
         className="text-3xl md:text-4xl font-bold font-orbitron mb-2"
+        style={{ color: 'var(--primary-color)' }}
       >
-        <span className="text-red-500">{title}</span>
+        {title}
       </motion.h2>
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="text-xl text-gray-300"
+        className="text-xl"
+        style={{ color: 'var(--text-muted)' }}
       >
         {subtitle}
       </motion.p>
@@ -33,8 +35,9 @@ export default function SectionHeading({ title, subtitle }: SectionHeadingProps)
         whileInView={{ width: "80px" }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className="h-1 bg-red-500 mx-auto mt-4"
-      ></motion.div>
+        className="h-1 mx-auto mt-4"
+        style={{ backgroundColor: 'var(--primary-color)' }}
+      />
     </div>
   )
 }

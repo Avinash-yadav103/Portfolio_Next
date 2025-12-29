@@ -2,43 +2,293 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   THEME SYSTEM - Light, Dark, Optimus, Bumblebee, Space
+   ============================================ */
+
+/* Default/Dark theme (base) */
 :root {
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
-}
-
-/* Default theme variables */
-:root {
+  
+  /* Primary Colors */
   --primary-color: #ef4444;
   --primary-hover: #dc2626;
   --primary-glow: rgba(239, 68, 68, 0.5);
+  --primary-rgb: 239, 68, 68;
+  
+  /* Secondary Colors */
   --secondary-color: #1f2937;
+  --secondary-hover: #374151;
+  
+  /* Text Colors */
   --text-color: #ffffff;
+  --text-muted: #9ca3af;
+  --text-heading: #f9fafb;
+  
+  /* Background Colors */
   --background-color: #000000;
+  --background-secondary: #111111;
+  --background-card: rgba(17, 17, 17, 0.8);
+  --background-glass: rgba(0, 0, 0, 0.6);
+  
+  /* Border Colors */
+  --border-color: rgba(239, 68, 68, 0.3);
+  --border-hover: rgba(239, 68, 68, 0.6);
+  
+  /* Grid & Effects */
   --grid-color: rgba(239, 68, 68, 0.1);
+  --glow-color: rgba(239, 68, 68, 0.4);
+  
+  /* Accent Colors */
+  --accent-color: #3b82f6;
+  --success-color: #22c55e;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px var(--primary-glow);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+  --transition-slow: 500ms ease;
 }
 
-/* Optimus Prime theme */
-[data-theme="optimus"] {
+/* ============================================
+   LIGHT THEME
+   ============================================ */
+[data-theme="light"] {
+  --foreground-rgb: 17, 24, 39;
+  --background-start-rgb: 249, 250, 251;
+  --background-end-rgb: 243, 244, 246;
+  
+  /* Primary Colors - Darker red for better contrast */
+  --primary-color: #dc2626;
+  --primary-hover: #b91c1c;
+  --primary-glow: rgba(220, 38, 38, 0.3);
+  --primary-rgb: 220, 38, 38;
+  
+  /* Secondary Colors */
+  --secondary-color: #e5e7eb;
+  --secondary-hover: #d1d5db;
+  
+  /* Text Colors */
+  --text-color: #111827;
+  --text-muted: #6b7280;
+  --text-heading: #030712;
+  
+  /* Background Colors */
+  --background-color: #f9fafb;
+  --background-secondary: #f3f4f6;
+  --background-card: rgba(255, 255, 255, 0.9);
+  --background-glass: rgba(255, 255, 255, 0.7);
+  
+  /* Border Colors */
+  --border-color: rgba(220, 38, 38, 0.2);
+  --border-hover: rgba(220, 38, 38, 0.5);
+  
+  /* Grid & Effects */
+  --grid-color: rgba(220, 38, 38, 0.08);
+  --glow-color: rgba(220, 38, 38, 0.2);
+  
+  /* Shadows - Lighter for light mode */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 20px var(--primary-glow);
+}
+
+/* ============================================
+   DARK THEME (Explicit)
+   ============================================ */
+[data-theme="dark"] {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+  
+  /* Primary Colors */
   --primary-color: #ef4444;
   --primary-hover: #dc2626;
   --primary-glow: rgba(239, 68, 68, 0.5);
-  --secondary-color: #1e40af;
+  --primary-rgb: 239, 68, 68;
+  
+  /* Secondary Colors */
+  --secondary-color: #1f2937;
+  --secondary-hover: #374151;
+  
+  /* Text Colors */
   --text-color: #ffffff;
+  --text-muted: #9ca3af;
+  --text-heading: #f9fafb;
+  
+  /* Background Colors */
   --background-color: #000000;
+  --background-secondary: #111111;
+  --background-card: rgba(17, 17, 17, 0.8);
+  --background-glass: rgba(0, 0, 0, 0.6);
+  
+  /* Border Colors */
+  --border-color: rgba(239, 68, 68, 0.3);
+  --border-hover: rgba(239, 68, 68, 0.6);
+  
+  /* Grid & Effects */
   --grid-color: rgba(239, 68, 68, 0.1);
+  --glow-color: rgba(239, 68, 68, 0.4);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px var(--primary-glow);
 }
 
-/* Bumblebee theme */
+/* ============================================
+   OPTIMUS PRIME THEME - Red & Blue Heroic
+   ============================================ */
+[data-theme="optimus"] {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 10, 10, 20;
+  --background-end-rgb: 5, 5, 15;
+  
+  /* Primary Colors - Classic Optimus Red */
+  --primary-color: #dc2626;
+  --primary-hover: #b91c1c;
+  --primary-glow: rgba(220, 38, 38, 0.6);
+  --primary-rgb: 220, 38, 38;
+  
+  /* Secondary Colors - Optimus Blue */
+  --secondary-color: #1e40af;
+  --secondary-hover: #1d4ed8;
+  
+  /* Text Colors */
+  --text-color: #ffffff;
+  --text-muted: #94a3b8;
+  --text-heading: #f8fafc;
+  
+  /* Background Colors - Deep blue-black */
+  --background-color: #0a0a14;
+  --background-secondary: #0f0f1a;
+  --background-card: rgba(30, 64, 175, 0.15);
+  --background-glass: rgba(10, 10, 20, 0.8);
+  
+  /* Border Colors */
+  --border-color: rgba(220, 38, 38, 0.4);
+  --border-hover: rgba(220, 38, 38, 0.8);
+  
+  /* Grid & Effects */
+  --grid-color: rgba(30, 64, 175, 0.15);
+  --glow-color: rgba(220, 38, 38, 0.5);
+  
+  /* Accent - Blue accent for secondary elements */
+  --accent-color: #3b82f6;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(30, 64, 175, 0.3);
+  --shadow-md: 0 4px 6px rgba(30, 64, 175, 0.3);
+  --shadow-lg: 0 10px 15px rgba(30, 64, 175, 0.4);
+  --shadow-glow: 0 0 30px var(--primary-glow), 0 0 60px rgba(30, 64, 175, 0.3);
+}
+
+/* ============================================
+   BUMBLEBEE THEME - Yellow & Black Energy
+   ============================================ */
 [data-theme="bumblebee"] {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 15, 10;
+  --background-end-rgb: 10, 10, 5;
+  
+  /* Primary Colors - Bumblebee Yellow */
   --primary-color: #facc15;
   --primary-hover: #eab308;
   --primary-glow: rgba(250, 204, 21, 0.5);
-  --secondary-color: #1f2937;
-  --text-color: #ffffff;
-  --background-color: #000000;
+  --primary-rgb: 250, 204, 21;
+  
+  /* Secondary Colors - Deep Black/Charcoal */
+  --secondary-color: #1c1917;
+  --secondary-hover: #292524;
+  
+  /* Text Colors */
+  --text-color: #fafaf9;
+  --text-muted: #a8a29e;
+  --text-heading: #fafaf9;
+  
+  /* Background Colors - Warm black */
+  --background-color: #0c0a09;
+  --background-secondary: #1c1917;
+  --background-card: rgba(250, 204, 21, 0.08);
+  --background-glass: rgba(12, 10, 9, 0.8);
+  
+  /* Border Colors */
+  --border-color: rgba(250, 204, 21, 0.3);
+  --border-hover: rgba(250, 204, 21, 0.7);
+  
+  /* Grid & Effects */
   --grid-color: rgba(250, 204, 21, 0.1);
+  --glow-color: rgba(250, 204, 21, 0.4);
+  
+  /* Accent - Orange for energy */
+  --accent-color: #f97316;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(250, 204, 21, 0.2);
+  --shadow-md: 0 4px 6px rgba(250, 204, 21, 0.2);
+  --shadow-lg: 0 10px 15px rgba(250, 204, 21, 0.3);
+  --shadow-glow: 0 0 30px var(--primary-glow);
+}
+
+/* ============================================
+   SPACE THEME - Purple Neumorphism (For Simple Portfolio)
+   ============================================ */
+[data-theme="space"] {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 107, 91, 149;
+  --background-end-rgb: 87, 71, 129;
+  
+  /* Primary Colors - Soft Purple */
+  --primary-color: #a78bfa;
+  --primary-hover: #8b5cf6;
+  --primary-glow: rgba(167, 139, 250, 0.4);
+  --primary-rgb: 167, 139, 250;
+  
+  /* Secondary Colors */
+  --secondary-color: #7c6aa8;
+  --secondary-hover: #8b7ab8;
+  
+  /* Text Colors */
+  --text-color: #f5f3ff;
+  --text-muted: #c4b5fd;
+  --text-heading: #ffffff;
+  
+  /* Background Colors - Purple gradient */
+  --background-color: #6b5b95;
+  --background-secondary: #7c6aa8;
+  --background-card: rgba(139, 122, 184, 0.6);
+  --background-glass: rgba(107, 91, 149, 0.7);
+  
+  /* Neumorphic specific */
+  --neumorphic-light: rgba(255, 255, 255, 0.15);
+  --neumorphic-dark: rgba(0, 0, 0, 0.25);
+  --neumorphic-bg: #7c6aa8;
+  
+  /* Border Colors */
+  --border-color: rgba(167, 139, 250, 0.3);
+  --border-hover: rgba(167, 139, 250, 0.6);
+  
+  /* Grid & Effects */
+  --grid-color: rgba(167, 139, 250, 0.1);
+  --glow-color: rgba(167, 139, 250, 0.3);
+  
+  /* Shadows - Neumorphic */
+  --shadow-sm: 3px 3px 6px var(--neumorphic-dark), -3px -3px 6px var(--neumorphic-light);
+  --shadow-md: 6px 6px 12px var(--neumorphic-dark), -6px -6px 12px var(--neumorphic-light);
+  --shadow-lg: 10px 10px 20px var(--neumorphic-dark), -10px -10px 20px var(--neumorphic-light);
+  --shadow-inset: inset 4px 4px 8px var(--neumorphic-dark), inset -4px -4px 8px var(--neumorphic-light);
+  --shadow-glow: 0 0 20px var(--primary-glow);
 }
 
 body {
@@ -214,4 +464,275 @@ body {
   font-family: 'Courier New', monospace;
   color: #00ff00;
   text-shadow: 0 0 10px #00ff00;
+}
+
+/* ============================================
+   THEME-AWARE COMPONENT CLASSES
+   ============================================ */
+
+/* Theme-aware text colors */
+.text-theme-primary {
+  color: var(--primary-color);
+}
+
+.text-theme-secondary {
+  color: var(--secondary-color);
+}
+
+.text-theme-muted {
+  color: var(--text-muted);
+}
+
+.text-theme-heading {
+  color: var(--text-heading);
+}
+
+/* Theme-aware backgrounds */
+.bg-theme-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-theme-secondary {
+  background-color: var(--secondary-color);
+}
+
+.bg-theme-card {
+  background-color: var(--background-card);
+}
+
+.bg-theme-glass {
+  background-color: var(--background-glass);
+  backdrop-filter: blur(12px);
+}
+
+/* Theme-aware borders */
+.border-theme {
+  border-color: var(--border-color);
+}
+
+.border-theme-hover:hover {
+  border-color: var(--border-hover);
+}
+
+/* Theme-aware shadows */
+.shadow-theme-sm {
+  box-shadow: var(--shadow-sm);
+}
+
+.shadow-theme-md {
+  box-shadow: var(--shadow-md);
+}
+
+.shadow-theme-lg {
+  box-shadow: var(--shadow-lg);
+}
+
+.shadow-theme-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+/* Theme-aware hover effects */
+.hover-theme-glow:hover {
+  box-shadow: var(--shadow-glow);
+  transition: box-shadow var(--transition-normal);
+}
+
+/* ============================================
+   NEUMORPHIC STYLES (For Space Theme)
+   ============================================ */
+
+.neumorphic {
+  background: var(--neumorphic-bg, var(--background-secondary));
+  border-radius: 20px;
+  box-shadow: var(--shadow-md);
+}
+
+.neumorphic-inset {
+  background: var(--neumorphic-bg, var(--background-secondary));
+  border-radius: 16px;
+  box-shadow: var(--shadow-inset, inset 4px 4px 8px rgba(0,0,0,0.2), inset -4px -4px 8px rgba(255,255,255,0.1));
+}
+
+.neumorphic-btn {
+  background: var(--neumorphic-bg, var(--background-secondary));
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.neumorphic-btn:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.neumorphic-btn:active {
+  box-shadow: var(--shadow-inset, inset 2px 2px 4px rgba(0,0,0,0.2), inset -2px -2px 4px rgba(255,255,255,0.1));
+  transform: translateY(0);
+}
+
+.neumorphic-card {
+  background: linear-gradient(145deg, 
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* ============================================
+   SPACE THEME SPECIFIC STYLES
+   ============================================ */
+
+[data-theme="space"] .space-gradient-bg {
+  background: linear-gradient(135deg, #6b5b95 0%, #7c6aa8 50%, #8b7ab8 100%);
+}
+
+[data-theme="space"] .space-card {
+  background: linear-gradient(145deg, #8b7ab8, #6b5b95);
+  border-radius: 24px;
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.25),
+    -8px -8px 16px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="space"] .space-input {
+  background: rgba(107, 91, 149, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  box-shadow: 
+    inset 4px 4px 8px rgba(0, 0, 0, 0.2),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="space"] .space-btn {
+  background: linear-gradient(145deg, #8b7ab8, #6b5b95);
+  border-radius: 16px;
+  box-shadow: 
+    6px 6px 12px rgba(0, 0, 0, 0.3),
+    -6px -6px 12px rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+[data-theme="space"] .space-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.35),
+    -8px -8px 16px rgba(255, 255, 255, 0.15);
+}
+
+/* Star animation for space theme */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.star {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.star:nth-child(2n) { animation-delay: 0.5s; }
+.star:nth-child(3n) { animation-delay: 1s; }
+.star:nth-child(4n) { animation-delay: 1.5s; }
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ============================================
+   LIGHT THEME SPECIFIC OVERRIDES
+   ============================================ */
+
+[data-theme="light"] body {
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+}
+
+[data-theme="light"] .bg-black {
+  background-color: #f9fafb;
+}
+
+[data-theme="light"] .text-white {
+  color: #111827;
+}
+
+[data-theme="light"] .text-gray-300 {
+  color: #4b5563;
+}
+
+[data-theme="light"] .text-gray-400 {
+  color: #6b7280;
+}
+
+[data-theme="light"] .bg-black\/80 {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="light"] .border-gray-700 {
+  border-color: #d1d5db;
+}
+
+[data-theme="light"] .bg-gray-800 {
+  background-color: #e5e7eb;
+}
+
+[data-theme="light"] .hover\:bg-gray-800:hover {
+  background-color: #e5e7eb;
+}
+
+/* ============================================
+   OPTIMUS PRIME THEME SPECIFIC STYLES
+   ============================================ */
+
+[data-theme="optimus"] .optimus-glow {
+  box-shadow: 
+    0 0 10px rgba(220, 38, 38, 0.4),
+    0 0 30px rgba(30, 64, 175, 0.3),
+    0 0 50px rgba(220, 38, 38, 0.2);
+}
+
+[data-theme="optimus"] .optimus-border {
+  border: 2px solid transparent;
+  background: linear-gradient(var(--background-color), var(--background-color)) padding-box,
+              linear-gradient(135deg, #dc2626, #1e40af) border-box;
+}
+
+/* ============================================
+   BUMBLEBEE THEME SPECIFIC STYLES  
+   ============================================ */
+
+[data-theme="bumblebee"] .bee-stripes {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--primary-color),
+    var(--primary-color) 10px,
+    var(--secondary-color) 10px,
+    var(--secondary-color) 20px
+  );
+}
+
+[data-theme="bumblebee"] .bee-glow {
+  box-shadow: 
+    0 0 15px rgba(250, 204, 21, 0.5),
+    0 0 30px rgba(250, 204, 21, 0.3);
+}
+
+/* ============================================
+   RESPONSIVE THEME UTILITIES
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse,
+  .animate-glitch,
+  .animate-float,
+  .star {
+    animation: none;
+  }
 }

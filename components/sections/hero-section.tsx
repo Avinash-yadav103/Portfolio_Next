@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { gsap } from "gsap"
 import { ArrowDown } from "lucide-react"
+import { useTheme } from "next-themes"
 import TypewriterComponent from "typewriter-effect"
 import HeroModel from "@/components/3d/hero-model"
 import TransformingButton from "@/components/ui/transforming-button"
@@ -11,6 +12,7 @@ import TransformingButton from "@/components/ui/transforming-button"
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
+  const { theme } = useTheme()
 
   useEffect(() => {
     if (!sectionRef.current || !textRef.current) return
@@ -41,8 +43,14 @@ export default function HeroSection() {
       {/* Background elements */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 left-0 w-full h-full bg-grid-pattern opacity-10"></div>
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-red-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-3xl"></div>
+        <div 
+          className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full blur-3xl"
+          style={{ backgroundColor: 'var(--primary-glow)', opacity: 0.1 }}
+        />
+        <div 
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl"
+          style={{ backgroundColor: 'var(--primary-glow)', opacity: 0.1 }}
+        />
       </div>
 
       <div className="container mx-auto px-4 z-10">
@@ -54,7 +62,10 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              <h2 className="text-red-500 font-orbitron text-xl mb-2 gsap-hero-anim">
+              <h2 
+                className="font-orbitron text-xl mb-2 gsap-hero-anim"
+                style={{ color: 'var(--primary-color)' }}
+              >
                 <TypewriterComponent
                   options={{
                     strings: ["FRONTEND DEVELOPER", "UI/UX DESIGNER", "CREATIVE CODER"],
@@ -66,10 +77,13 @@ export default function HeroSection() {
                 />
               </h2>
               <h1 className="text-4xl md:text-6xl font-bold font-orbitron mb-6 gsap-hero-anim">
-                <span className="text-white">YOUR NAME</span>
-                <span className="text-red-500">.</span>
+                <span style={{ color: 'var(--text-heading)' }}>YOUR NAME</span>
+                <span style={{ color: 'var(--primary-color)' }}>.</span>
               </h1>
-              <p className="text-gray-300 text-lg mb-8 max-w-lg gsap-hero-anim">
+              <p 
+                className="text-lg mb-8 max-w-lg gsap-hero-anim"
+                style={{ color: 'var(--text-muted)' }}
+              >
                 Transforming ideas into immersive digital experiences with cutting-edge technology and creative design.
               </p>
               <div className="flex flex-wrap gap-4 gsap-hero-anim">
@@ -102,8 +116,13 @@ export default function HeroSection() {
             }}
             className="flex flex-col items-center"
           >
-            <span className="text-gray-400 text-sm mb-2 font-orbitron">SCROLL DOWN</span>
-            <ArrowDown className="text-red-500" size={20} />
+            <span 
+              className="text-sm mb-2 font-orbitron"
+              style={{ color: 'var(--text-muted)' }}
+            >
+              SCROLL DOWN
+            </span>
+            <ArrowDown style={{ color: 'var(--primary-color)' }} size={20} />
           </motion.div>
         </div>
       </div>
