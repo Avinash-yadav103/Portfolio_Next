@@ -1,84 +1,70 @@
 "use client"
 
-import { useRef } from "react"
+import { Suspense, useRef } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
-import { Environment, Float } from "@react-three/drei"
+import { useGLTF, Environment, Float, OrbitControls, Center } from "@react-three/drei"
 import type * as THREE from "three"
 
-function TransformerModel() {
-  const meshRef = useRef<THREE.Mesh>(null)
+function BumblebeeModel() {
+  const groupRef = useRef<THREE.Group>(null)
+  const { scene } = useGLTF("/images/bumble.glb")
 
-  // Since we don't have an actual Transformer model, we'll create a stylized robot-like shape
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.2
-      meshRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.1
+    if (groupRef.current) {
+      // Gentle rotation
+      groupRef.current.rotation.y = state.clock.getElapsedTime() * 0.3
     }
   })
 
   return (
-    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
-      <group>
-        {/* Body */}
-        <mesh position={[0, 0, 0]} castShadow>
-          <boxGeometry args={[2, 3, 1]} />
-          <meshStandardMaterial color="#333333" metalness={0.8} roughness={0.2} />
-        </mesh>
-
-        {/* Head */}
-        <mesh position={[0, 2, 0]} castShadow>
-          <boxGeometry args={[1.2, 1.2, 1.2]} />
-          <meshStandardMaterial color="#444444" metalness={0.8} roughness={0.2} />
-        </mesh>
-
-        {/* Eyes */}
-        <mesh position={[0.3, 2.2, 0.65]} castShadow>
-          <boxGeometry args={[0.2, 0.1, 0.1]} />
-          <meshStandardMaterial color="#ff0000" emissive="#ff0000" emissiveIntensity={2} />
-        </mesh>
-        <mesh position={[-0.3, 2.2, 0.65]} castShadow>
-          <boxGeometry args={[0.2, 0.1, 0.1]} />
-          <meshStandardMaterial color="#ff0000" emissive="#ff0000" emissiveIntensity={2} />
-        </mesh>
-
-        {/* Arms */}
-        <mesh position={[1.5, 0.5, 0]} castShadow>
-          <boxGeometry args={[1, 0.5, 0.5]} />
-          <meshStandardMaterial color="#555555" metalness={0.8} roughness={0.2} />
-        </mesh>
-        <mesh position={[-1.5, 0.5, 0]} castShadow>
-          <boxGeometry args={[1, 0.5, 0.5]} />
-          <meshStandardMaterial color="#555555" metalness={0.8} roughness={0.2} />
-        </mesh>
-
-        {/* Legs */}
-        <mesh position={[0.6, -2, 0]} castShadow>
-          <boxGeometry args={[0.8, 1, 0.8]} />
-          <meshStandardMaterial color="#555555" metalness={0.8} roughness={0.2} />
-        </mesh>
-        <mesh position={[-0.6, -2, 0]} castShadow>
-          <boxGeometry args={[0.8, 1, 0.8]} />
-          <meshStandardMaterial color="#555555" metalness={0.8} roughness={0.2} />
-        </mesh>
-
-        {/* Autobot symbol */}
-        <mesh ref={meshRef} position={[0, 0.5, 0.55]} castShadow>
-          <cylinderGeometry args={[0.5, 0.5, 0.1, 6]} />
-          <meshStandardMaterial color="#ff0000" emissive="#ff0000" emissiveIntensity={0.5} />
-        </mesh>
-      </group>
+    <Float speed={1.5} rotationIntensity={0.1} floatIntensity={0.2}>
+      <Center>
+        <group ref={groupRef} scale={0.8} position={[0, 0, 0]} rotation={[0, -0.5, 0]}>
+          <primitive object={scene} />
+        </group>
+      </Center>
     </Float>
+  )
+}
+
+function LoadingFallback() {
+  return (
+    <mesh>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color="#FFD700" wireframe />
+    </mesh>
   )
 }
 
 export default function HeroModel() {
   return (
-    <Canvas camera={{ position: [0, 0, 10], fov: 40 }}>
-      <ambientLight intensity={0.2} />
-      <pointLight position={[10, 10, 10]} intensity={1} />
-      <spotLight position={[0, 5, 5]} angle={0.3} penumbra={1} intensity={1} castShadow />
-      <TransformerModel />
-      <Environment preset="night" />
-    </Canvas>
+    <div className="w-full h-full">
+      <Canvas camera={{ position: [5, 2, 8], fov: 50 }}>
+        <ambientLight intensity={0.6} />
+        <directionalLight position={[10, 10, 5]} intensity={1.2} />
+        <pointLight position={[-10, -10, -5]} intensity={0.5} color="#FFD700" />
+        <spotLight 
+          position={[0, 10, 0]} 
+          angle={0.3} 
+          penumbra={1} 
+          intensity={1} 
+          castShadow 
+        />
+        <Suspense fallback={<LoadingFallback />}>
+          <BumblebeeModel />
+        </Suspense>
+        <OrbitControls 
+          enableZoom={false} 
+          enablePan={false}
+          minPolarAngle={Math.PI / 4}
+          maxPolarAngle={Math.PI / 2}
+          target={[0, 0, 0]}
+        />
+        <Environment preset="city" />
+      </Canvas>
+    </div>
   )
 }
+
+// Preload the model
+useGLTF.preload("/images/bumble.glb")
