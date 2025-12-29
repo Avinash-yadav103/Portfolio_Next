@@ -3,11 +3,12 @@
 import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { gsap } from "gsap"
-import { ArrowDown } from "lucide-react"
+import { ArrowDown, Rocket } from "lucide-react"
 import { useTheme } from "next-themes"
 import TypewriterComponent from "typewriter-effect"
 import HeroModel from "@/components/3d/hero-model"
 import TransformingButton from "@/components/ui/transforming-button"
+import Link from "next/link"
 
 export default function HeroSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -93,6 +94,16 @@ export default function HeroSection() {
                 <TransformingButton href="#contact" variant="secondary" className="w-36">
                   Contact Me
                 </TransformingButton>
+                <Link href="/simple">
+                  <motion.button
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-purple-600 via-violet-500 to-indigo-600 text-white font-medium shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300 border border-white/10"
+                  >
+                    <Rocket size={18} className="animate-pulse" />
+                    <span>Let&apos;s Go to Space</span>
+                  </motion.button>
+                </Link>
               </div>
             </motion.div>
           </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { 
   Home, 
@@ -11,96 +11,29 @@ import {
   ArrowRight, 
   ChevronDown,
   Rocket,
-  Star,
-  Code,
-  Briefcase,
-  GraduationCap,
-  Mail,
   Github,
   Linkedin,
-  Twitter
+  Mail,
+  ExternalLink,
+  Code,
+  Briefcase,
+  GraduationCap
 } from "lucide-react"
+import Link from "next/link"
 import Image from "next/image"
 
-// Neumorphic Card Component
-const NeumorphicCard = ({ 
-  children, 
-  className = "", 
-  hover = true,
-  variant = "raised"
-}: { 
-  children: React.ReactNode
-  className?: string
-  hover?: boolean
-  variant?: "raised" | "flat" | "inset"
-}) => {
-  const baseStyles = "rounded-3xl transition-all duration-300"
-  
-  const variantStyles = {
-    raised: "bg-gradient-to-br from-[#8b7ab8] to-[#6b5b95] shadow-[8px_8px_16px_rgba(0,0,0,0.25),-8px_-8px_16px_rgba(255,255,255,0.1)]",
-    flat: "bg-[#7c6aa8]",
-    inset: "bg-[#7c6aa8] shadow-[inset_4px_4px_8px_rgba(0,0,0,0.2),inset_-4px_-4px_8px_rgba(255,255,255,0.1)]"
-  }
-
-  const hoverStyles = hover 
-    ? "hover:shadow-[12px_12px_24px_rgba(0,0,0,0.3),-12px_-12px_24px_rgba(255,255,255,0.15)] hover:-translate-y-1" 
-    : ""
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5 }}
-      className={`${baseStyles} ${variantStyles[variant]} ${hoverStyles} ${className}`}
-    >
-      {children}
-    </motion.div>
-  )
-}
-
-// Neumorphic Button Component
-const NeumorphicButton = ({ 
-  children, 
-  className = "",
-  variant = "raised",
-  onClick
-}: { 
-  children: React.ReactNode
-  className?: string
-  variant?: "raised" | "flat" | "icon"
-  onClick?: () => void
-}) => {
-  const baseStyles = "transition-all duration-200 font-medium text-white/90"
-  
-  const variantStyles = {
-    raised: "bg-gradient-to-br from-[#8b7ab8] to-[#6b5b95] rounded-2xl px-6 py-3 shadow-[6px_6px_12px_rgba(0,0,0,0.3),-6px_-6px_12px_rgba(255,255,255,0.1)] hover:shadow-[8px_8px_16px_rgba(0,0,0,0.35),-8px_-8px_16px_rgba(255,255,255,0.15)] active:shadow-[inset_4px_4px_8px_rgba(0,0,0,0.2),inset_-4px_-4px_8px_rgba(255,255,255,0.1)]",
-    flat: "bg-[#7c6aa8]/50 rounded-xl px-4 py-2 hover:bg-[#8b7ab8]/50",
-    icon: "bg-gradient-to-br from-[#8b7ab8] to-[#6b5b95] rounded-xl p-3 shadow-[4px_4px_8px_rgba(0,0,0,0.25),-4px_-4px_8px_rgba(255,255,255,0.1)] hover:shadow-[6px_6px_12px_rgba(0,0,0,0.3),-6px_-6px_12px_rgba(255,255,255,0.15)]"
-  }
-
-  return (
-    <button
-      onClick={onClick}
-      className={`${baseStyles} ${variantStyles[variant]} ${className}`}
-    >
-      {children}
-    </button>
-  )
-}
-
-// Star Background
+// Star Background Component
 const StarField = () => {
-  const stars = Array.from({ length: 50 }, (_, i) => ({
+  const stars = Array.from({ length: 60 }, (_, i) => ({
     id: i,
     left: `${Math.random() * 100}%`,
     top: `${Math.random() * 100}%`,
-    size: Math.random() * 3 + 1,
+    size: Math.random() * 2 + 1,
     delay: Math.random() * 3,
   }))
 
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
       {stars.map((star) => (
         <motion.div
           key={star.id}
@@ -112,11 +45,11 @@ const StarField = () => {
             height: star.size,
           }}
           animate={{
-            opacity: [0.3, 1, 0.3],
+            opacity: [0.2, 0.7, 0.2],
             scale: [1, 1.2, 1],
           }}
           transition={{
-            duration: 2,
+            duration: 2 + Math.random() * 2,
             delay: star.delay,
             repeat: Infinity,
             ease: "easeInOut",
@@ -127,63 +60,123 @@ const StarField = () => {
   )
 }
 
-// Navigation Icons
+// Constellation Lines SVG
+const ConstellationLines = () => (
+  <svg className="fixed inset-0 w-full h-full pointer-events-none opacity-30 z-0">
+    <defs>
+      <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#c4b5fd" stopOpacity="0.6" />
+        <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.1" />
+      </linearGradient>
+    </defs>
+    {/* Decorative constellation lines */}
+    <motion.circle cx="20%" cy="30%" r="3" fill="#c4b5fd" opacity="0.5" />
+    <motion.circle cx="80%" cy="20%" r="2" fill="#c4b5fd" opacity="0.4" />
+    <motion.circle cx="70%" cy="60%" r="3" fill="#c4b5fd" opacity="0.5" />
+    <motion.circle cx="30%" cy="70%" r="2" fill="#c4b5fd" opacity="0.4" />
+    <motion.path
+      d="M20% 30% Q 50% 20% 80% 20%"
+      stroke="url(#lineGrad)"
+      strokeWidth="1"
+      fill="none"
+      strokeDasharray="5,5"
+      initial={{ pathLength: 0 }}
+      animate={{ pathLength: 1 }}
+      transition={{ duration: 3, ease: "easeInOut" }}
+    />
+  </svg>
+)
+
+// Neumorphic Card - matching the reference purple style
+const NeumorphicCard = ({ 
+  children, 
+  className = "", 
+  variant = "raised"
+}: { 
+  children: React.ReactNode
+  className?: string
+  variant?: "raised" | "inset" | "bubble" | "bubble-right"
+}) => {
+  const variants = {
+    raised: "bg-[#7c6ba8]/80 backdrop-blur-sm shadow-[6px_6px_12px_rgba(0,0,0,0.3),-6px_-6px_12px_rgba(255,255,255,0.08)] border border-[#9d8ec9]/30",
+    inset: "bg-[#6b5a95]/50 shadow-[inset_4px_4px_8px_rgba(0,0,0,0.25),inset_-4px_-4px_8px_rgba(255,255,255,0.05)] border border-[#8b7ab8]/20",
+    bubble: "bg-[#f0eef5]/95 text-[#4a3f6b] shadow-[4px_4px_10px_rgba(0,0,0,0.15),-2px_-2px_6px_rgba(255,255,255,0.8)]",
+    "bubble-right": "bg-[#7c6ba8]/90 text-white shadow-[4px_4px_10px_rgba(0,0,0,0.25),-2px_-2px_6px_rgba(255,255,255,0.08)]"
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      className={`rounded-[24px] transition-all duration-300 ${variants[variant]} ${className}`}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+// Neumorphic Button
+const NeumorphicButton = ({ 
+  children, 
+  className = "",
+  variant = "filled"
+}: { 
+  children: React.ReactNode
+  className?: string
+  variant?: "filled" | "outline"
+}) => {
+  const variants = {
+    filled: "bg-[#7c6ba8] text-white shadow-[4px_4px_8px_rgba(0,0,0,0.3),-4px_-4px_8px_rgba(255,255,255,0.08)] hover:shadow-[6px_6px_12px_rgba(0,0,0,0.35),-6px_-6px_12px_rgba(255,255,255,0.1)]",
+    outline: "bg-transparent text-white border-2 border-[#a78bfa]/50 hover:bg-[#a78bfa]/10"
+  }
+
+  return (
+    <button className={`px-5 py-2.5 rounded-xl font-medium transition-all duration-200 ${variants[variant]} ${className}`}>
+      {children}
+    </button>
+  )
+}
+
+// Navigation Icon
 const NavIcon = ({ icon: Icon, active = false }: { icon: any; active?: boolean }) => (
   <div
-    className={`p-3 rounded-xl transition-all duration-200 ${
+    className={`p-3.5 rounded-2xl transition-all duration-300 ${
       active
-        ? "bg-white/20 shadow-[inset_2px_2px_4px_rgba(0,0,0,0.2),inset_-2px_-2px_4px_rgba(255,255,255,0.1)]"
-        : "hover:bg-white/10"
+        ? "bg-white/20 shadow-[inset_3px_3px_6px_rgba(0,0,0,0.2),inset_-3px_-3px_6px_rgba(255,255,255,0.08)]"
+        : "shadow-[4px_4px_8px_rgba(0,0,0,0.2),-4px_-4px_8px_rgba(255,255,255,0.05)] hover:bg-white/10"
     }`}
   >
-    <Icon size={20} className="text-white/80" />
+    <Icon size={22} className={active ? "text-white" : "text-white/70"} />
   </div>
 )
 
-// Project Card
-const ProjectCard = ({ 
-  title, 
-  image, 
-  color = "purple" 
-}: { 
-  title: string
-  image?: string
-  color?: string
-}) => (
-  <NeumorphicCard className="relative overflow-hidden group cursor-pointer aspect-square">
-    <div className={`absolute inset-0 bg-gradient-to-br ${
-      color === "purple" ? "from-purple-500/30 to-indigo-600/30" :
-      color === "blue" ? "from-blue-500/30 to-cyan-500/30" :
-      "from-pink-500/30 to-rose-500/30"
-    }`} />
-    {image ? (
-      <Image 
-        src={image} 
-        alt={title} 
-        fill 
-        className="object-cover opacity-70 group-hover:opacity-100 transition-opacity"
-      />
-    ) : (
-      <div className="absolute inset-0 flex items-center justify-center">
-        <Star className="text-white/20" size={48} />
-      </div>
-    )}
-    <div className="absolute bottom-4 right-4">
-      <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center group-hover:bg-white/30 transition-colors">
-        <ArrowRight size={16} className="text-white" />
-      </div>
+// Project Image Card
+const ProjectCard = ({ gradient }: { gradient: string }) => (
+  <motion.div
+    whileHover={{ scale: 1.03 }}
+    className={`aspect-square rounded-2xl overflow-hidden relative cursor-pointer shadow-[4px_4px_10px_rgba(0,0,0,0.3),-2px_-2px_6px_rgba(255,255,255,0.05)] border border-white/10`}
+  >
+    <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
+    <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIyIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC4zIi8+PGNpcmNsZSBjeD0iMjAiIGN5PSIzMCIgcj0iMSIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuMiIvPjxjaXJjbGUgY3g9IjgwIiBjeT0iNzAiIHI9IjEuNSIgZmlsbD0id2hpdGUiIG9wYWNpdHk9IjAuMjUiLz48L3N2Zz4=')] opacity-60" />
+    <div className="absolute bottom-2 right-2 w-7 h-7 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors">
+      <ArrowRight size={12} className="text-white" />
     </div>
-  </NeumorphicCard>
+  </motion.div>
 )
 
 // Skills Data
-const skills = [
-  { name: "React", level: 90 },
-  { name: "TypeScript", level: 85 },
-  { name: "Next.js", level: 88 },
-  { name: "Node.js", level: 80 },
-  { name: "Tailwind", level: 95 },
-  { name: "Three.js", level: 70 },
+const skills = ["React", "TypeScript", "Next.js", "Node.js", "Tailwind CSS", "Three.js"]
+
+// Projects Data  
+const projects = [
+  { gradient: "from-slate-800 via-slate-700 to-slate-900" }, // Black hole
+  { gradient: "from-blue-900 via-purple-800 to-indigo-900" }, // Galaxy
+  { gradient: "from-violet-600 via-purple-700 to-fuchsia-800" }, // Purple space
+  { gradient: "from-gray-700 via-slate-600 to-gray-800" }, // Planet
+  { gradient: "from-cyan-600 via-teal-500 to-emerald-600" }, // Comet
+  { gradient: "from-purple-800 via-violet-700 to-indigo-800" }, // Nebula
 ]
 
 export default function SpacePortfolio() {
@@ -194,22 +187,31 @@ export default function SpacePortfolio() {
     <div 
       className="min-h-screen text-white relative overflow-x-hidden"
       style={{
-        background: "linear-gradient(135deg, #6b5b95 0%, #7c6aa8 50%, #8b7ab8 100%)",
+        background: "linear-gradient(160deg, #6b5a95 0%, #7c6ba8 40%, #8d7cb9 70%, #9e8dca 100%)",
       }}
     >
-      {/* Star Background */}
       <StarField />
+      <ConstellationLines />
+
+      {/* Back to Main */}
+      <Link 
+        href="/"
+        className="fixed top-4 left-4 z-50 flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white/80 hover:text-white hover:bg-white/20 transition-all text-sm"
+      >
+        <ArrowRight size={16} className="rotate-180" />
+        Back to Main
+      </Link>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-md mx-auto px-4 py-6 pb-24 space-y-6">
+      <div className="relative z-10 max-w-lg mx-auto px-4 py-6 pb-20">
         
         {/* Search Bar */}
-        <NeumorphicCard variant="inset" className="p-4">
+        <NeumorphicCard variant="inset" className="p-3.5 mt-12 mb-4">
           <div className="flex items-center gap-3">
-            <Search size={20} className="text-white/50" />
+            <Search size={18} className="text-white/50" />
             <input
               type="text"
-              placeholder="Search portfolio..."
+              placeholder="Search my portfolio..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-transparent flex-1 outline-none text-white placeholder-white/40 text-sm"
@@ -217,86 +219,75 @@ export default function SpacePortfolio() {
           </div>
         </NeumorphicCard>
 
-        {/* Logo/Brand */}
-        <div className="flex justify-end">
-          <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
-            <Rocket size={20} className="text-white" />
+        {/* Logo */}
+        <div className="flex justify-end mb-3">
+          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#a78bfa] to-[#7c3aed] flex items-center justify-center shadow-lg">
+            <Code size={20} className="text-white" />
           </div>
         </div>
 
-        {/* Hero Section */}
-        <NeumorphicCard className="p-6 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-400/20 to-transparent rounded-bl-full" />
+        {/* Hero Card */}
+        <NeumorphicCard className="p-5 mb-4 relative overflow-hidden">
+          {/* Decorative corner curve */}
+          <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-bl from-[#9d8ec9]/40 to-transparent rounded-bl-[60px]" />
           
-          <div className="flex gap-6">
-            <div className="flex-1 space-y-4">
-              <div className="space-y-1">
-                <motion.p 
-                  className="text-purple-200 text-sm font-medium tracking-wider"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  PORTFOLIO × SPACE THEME
-                </motion.p>
-                <motion.h1 
-                  className="text-4xl font-bold"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  <span className="bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
-                    YOUR
-                  </span>
-                  <br />
-                  <span className="text-purple-300 italic font-light">Name</span>
-                </motion.h1>
+          <div className="flex gap-4">
+            {/* Left content */}
+            <div className="flex-1 space-y-2 relative z-10">
+              <p className="text-[#d4c6ff] text-[10px] font-bold tracking-[0.2em] uppercase">
+                Portfolio × Space Edition
+              </p>
+              <div>
+                <h1 className="text-3xl font-extrabold text-white leading-none tracking-tight">
+                  ABOUT
+                </h1>
+                <p className="text-2xl font-light italic text-[#e9d5ff]">
+                  Developer
+                </p>
+                <p className="text-[10px] text-white/50 tracking-wider mt-1 uppercase">
+                  Your Name Here
+                </p>
               </div>
               
-              <div className="flex gap-2">
-                <NeumorphicButton variant="flat">LOGIN</NeumorphicButton>
-                <NeumorphicButton variant="raised">VIEW CV</NeumorphicButton>
+              <div className="flex gap-2 pt-3">
+                <NeumorphicButton variant="outline" className="text-xs px-4 py-2">
+                  Resume
+                </NeumorphicButton>
+                <NeumorphicButton variant="filled" className="text-xs px-4 py-2">
+                  Contact
+                </NeumorphicButton>
               </div>
             </div>
             
-            <div className="relative">
-              {/* Astronaut placeholder */}
-              <div className="w-24 h-32 flex items-center justify-center">
-                <motion.div
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <User size={64} className="text-white/60" />
-                </motion.div>
-              </div>
+            {/* Right - Description card */}
+            <div className="w-[45%] space-y-2">
+              <h3 className="text-sm font-bold text-white">WHO AM I...</h3>
+              <p className="text-[11px] text-white/80 leading-relaxed">
+                A passionate developer crafting digital experiences. Specializing in modern web technologies with focus on creating immersive user interfaces.
+              </p>
             </div>
           </div>
+          
+          {/* Floating astronaut placeholder */}
+          <motion.div
+            className="absolute -right-2 top-1/2 -translate-y-1/2"
+            animate={{ y: [0, -8, 0], rotate: [0, 5, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <div className="w-16 h-20 rounded-2xl bg-gradient-to-b from-white/20 to-white/5 backdrop-blur-sm flex items-center justify-center border border-white/10">
+              <User size={32} className="text-white/50" />
+            </div>
+          </motion.div>
         </NeumorphicCard>
 
-        {/* About Card */}
-        <NeumorphicCard className="p-6 relative">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-white/90">ABOUT ME</h3>
-            <Code size={20} className="text-purple-300" />
-          </div>
-          <p className="text-white/70 text-sm leading-relaxed mb-4">
-            A passionate developer who transforms ideas into elegant digital solutions. 
-            Specializing in modern web technologies with a focus on creating immersive user experiences.
-          </p>
-          <div className="flex items-center gap-2 text-purple-300 text-sm">
-            <ArrowRight size={16} />
-            <span>Learn more about my journey</span>
-          </div>
-        </NeumorphicCard>
-
-        {/* Navigation Icons */}
-        <NeumorphicCard className="p-4">
-          <div className="flex justify-between items-center">
+        {/* Navigation Bar */}
+        <NeumorphicCard className="p-3 mb-4">
+          <div className="flex justify-around items-center">
             {[
               { icon: Home, id: "home" },
               { icon: Grid3X3, id: "projects" },
-              { icon: Settings, id: "settings" },
-              { icon: User, id: "profile" },
+              { icon: Settings, id: "skills" },
+              { icon: User, id: "about" },
             ].map((item) => (
               <button key={item.id} onClick={() => setActiveNav(item.id)}>
                 <NavIcon icon={item.icon} active={activeNav === item.id} />
@@ -305,135 +296,182 @@ export default function SpacePortfolio() {
           </div>
         </NeumorphicCard>
 
-        {/* Skills Section */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-white/90">SKILLS</h3>
-            <Briefcase size={20} className="text-purple-300" />
+        {/* Section Title */}
+        <div className="flex items-center justify-center my-5">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-white/20" />
+          <span className="px-4 text-[10px] font-bold tracking-[0.15em] text-white/70 uppercase">
+            Brief About My Work
+          </span>
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-white/20" />
+        </div>
+
+        {/* Chat-style info section */}
+        <div className="space-y-3 mb-5">
+          {/* Left bubble - About */}
+          <div className="flex items-start gap-3">
+            <NeumorphicCard variant="bubble" className="p-4 max-w-[75%] rounded-tl-sm">
+              <p className="text-[11px] leading-relaxed">
+                I build modern web applications using React, Next.js, and TypeScript. 
+                My focus is on creating seamless user experiences with attention to detail 
+                and performance optimization.
+              </p>
+              <div className="flex items-center gap-1.5 mt-3 text-[#6b5b95]">
+                <ArrowRight size={12} />
+                <span className="text-[10px] font-medium">View my projects...</span>
+              </div>
+            </NeumorphicCard>
           </div>
-          
-          <div className="grid grid-cols-2 gap-3">
-            {skills.map((skill, index) => (
-              <NeumorphicCard key={skill.name} className="p-4" hover={false}>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-sm font-medium text-white/80">{skill.name}</span>
-                  <span className="text-xs text-purple-300">{skill.level}%</span>
-                </div>
-                <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-purple-400 to-indigo-400 rounded-full"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, delay: index * 0.1 }}
-                  />
-                </div>
-              </NeumorphicCard>
-            ))}
+
+          {/* Right bubble with astronaut */}
+          <div className="flex items-start justify-end gap-3">
+            <NeumorphicCard variant="bubble-right" className="p-3 max-w-[50%] rounded-tr-sm">
+              <div className="flex items-center gap-2">
+                <ArrowRight size={12} />
+                <span className="text-[10px]">Let&apos;s connect!</span>
+              </div>
+            </NeumorphicCard>
+            {/* Floating rocket astronaut */}
+            <motion.div
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="w-12 h-12 rounded-xl bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center"
+            >
+              <Rocket size={20} className="text-white/70 -rotate-45" />
+            </motion.div>
+          </div>
+
+          {/* Experience bubble */}
+          <div className="flex items-start gap-3">
+            <NeumorphicCard variant="bubble" className="p-4 max-w-[80%] rounded-tl-sm">
+              <p className="text-[11px] leading-relaxed">
+                With years of experience in frontend development, I&apos;ve worked on diverse 
+                projects ranging from e-commerce platforms to interactive dashboards. 
+                Currently exploring 3D web experiences and AI integrations.
+              </p>
+            </NeumorphicCard>
           </div>
         </div>
 
-        {/* Info Cards Row */}
-        <div className="grid grid-cols-2 gap-4">
-          <NeumorphicCard className="p-5">
-            <p className="text-white/60 text-xs uppercase tracking-wide mb-2">Experience</p>
-            <p className="text-2xl font-bold text-white">5+ Years</p>
-            <p className="text-purple-300 text-sm mt-2">Professional Development</p>
-          </NeumorphicCard>
-          
-          <NeumorphicCard className="p-5">
-            <p className="text-white/60 text-xs uppercase tracking-wide mb-2">Projects</p>
-            <p className="text-2xl font-bold text-white">50+</p>
-            <p className="text-purple-300 text-sm mt-2">Completed Successfully</p>
-          </NeumorphicCard>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="flex justify-center py-4">
-          <NeumorphicButton variant="raised" className="flex items-center gap-2">
-            <span>SCROLL</span>
-            <ChevronDown size={16} />
-          </NeumorphicButton>
+        {/* Scroll Button */}
+        <div className="flex justify-center my-6">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-8 py-3 rounded-2xl bg-[#7c6ba8] text-white font-bold tracking-wider text-sm shadow-[6px_6px_12px_rgba(0,0,0,0.3),-6px_-6px_12px_rgba(255,255,255,0.08)]"
+          >
+            SCROLL
+            <ChevronDown size={18} />
+          </motion.button>
         </div>
 
         {/* Projects Grid */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-semibold text-white/90">FEATURED PROJECTS</h3>
-            <Star size={20} className="text-purple-300" />
-          </div>
-          
-          <div className="grid grid-cols-2 gap-4">
-            <ProjectCard title="Project 1" color="purple" />
-            <ProjectCard title="Project 2" color="blue" />
-            <ProjectCard title="Project 3" color="pink" />
-            <div className="aspect-square flex items-center justify-center">
-              <NeumorphicButton variant="icon" className="w-16 h-16 rounded-full">
-                <span className="text-2xl">+</span>
-              </NeumorphicButton>
-            </div>
-          </div>
+        <div className="grid grid-cols-3 gap-3 mb-4">
+          {projects.map((project, index) => (
+            <ProjectCard key={index} gradient={project.gradient} />
+          ))}
         </div>
 
-        {/* Education Section */}
-        <NeumorphicCard className="p-6">
+        {/* Add more button + Rocket */}
+        <div className="flex items-center justify-between px-4 mb-6">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-12 h-12 rounded-full bg-[#7c6ba8] flex items-center justify-center shadow-[4px_4px_10px_rgba(0,0,0,0.3),-4px_-4px_10px_rgba(255,255,255,0.08)]"
+          >
+            <span className="text-2xl text-white/80">+</span>
+          </motion.button>
+          
+          {/* 3D Rocket decoration */}
+          <motion.div
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <Rocket size={48} className="text-white/40 rotate-[30deg]" />
+          </motion.div>
+        </div>
+
+        {/* Skills Section */}
+        <NeumorphicCard className="p-5 mb-4">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-400 to-indigo-500 flex items-center justify-center">
-              <GraduationCap size={20} className="text-white" />
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#a78bfa] to-[#7c3aed] flex items-center justify-center">
+              <Briefcase size={18} className="text-white" />
             </div>
             <div>
-              <h4 className="font-semibold text-white">Education</h4>
-              <p className="text-sm text-white/60">Bachelor's in Computer Science</p>
+              <h4 className="font-bold text-white text-sm">Skills & Technologies</h4>
+              <p className="text-[10px] text-white/60">What I work with</p>
             </div>
           </div>
-          <p className="text-white/70 text-sm leading-relaxed">
-            Graduated with honors, specializing in software engineering and interactive systems design.
-          </p>
+          <div className="flex flex-wrap gap-2">
+            {skills.map((skill, i) => (
+              <span 
+                key={i}
+                className="px-3 py-1.5 rounded-full text-[10px] font-medium bg-white/10 text-white/80 border border-white/10"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </NeumorphicCard>
+
+        {/* Education Card */}
+        <NeumorphicCard className="p-5 mb-4">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#a78bfa] to-[#7c3aed] flex items-center justify-center">
+              <GraduationCap size={18} className="text-white" />
+            </div>
+            <div>
+              <h4 className="font-bold text-white text-sm">Education</h4>
+              <p className="text-[10px] text-white/60">B.Tech in Computer Science</p>
+            </div>
+          </div>
         </NeumorphicCard>
 
         {/* Contact Section */}
-        <NeumorphicCard className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-white/90">GET IN TOUCH</h3>
-            <Mail size={20} className="text-purple-300" />
-          </div>
+        <NeumorphicCard className="p-5 mb-5">
+          <h4 className="font-bold text-white text-sm mb-4 flex items-center gap-2">
+            <Mail size={16} className="text-[#c4b5fd]" />
+            Get In Touch
+          </h4>
           
-          <div className="space-y-4">
-            <NeumorphicCard variant="inset" className="p-4">
+          <div className="space-y-3">
+            <NeumorphicCard variant="inset" className="p-3">
               <input
                 type="email"
-                placeholder="Your email address"
-                className="bg-transparent w-full outline-none text-white placeholder-white/40 text-sm"
+                placeholder="Your email"
+                className="bg-transparent w-full outline-none text-white placeholder-white/40 text-xs"
               />
             </NeumorphicCard>
-            
-            <NeumorphicCard variant="inset" className="p-4">
+            <NeumorphicCard variant="inset" className="p-3">
               <textarea
                 placeholder="Your message..."
                 rows={3}
-                className="bg-transparent w-full outline-none text-white placeholder-white/40 text-sm resize-none"
+                className="bg-transparent w-full outline-none text-white placeholder-white/40 text-xs resize-none"
               />
             </NeumorphicCard>
-            
-            <NeumorphicButton variant="raised" className="w-full">
+            <button className="w-full py-3 rounded-xl bg-[#7c6ba8] text-white font-semibold text-sm shadow-[4px_4px_10px_rgba(0,0,0,0.3),-4px_-4px_10px_rgba(255,255,255,0.08)] hover:shadow-[6px_6px_14px_rgba(0,0,0,0.35),-6px_-6px_14px_rgba(255,255,255,0.1)] transition-all">
               Send Message
-            </NeumorphicButton>
+            </button>
           </div>
         </NeumorphicCard>
 
         {/* Social Links */}
-        <div className="flex justify-center gap-4 py-4">
-          {[Github, Linkedin, Twitter].map((Icon, index) => (
-            <NeumorphicButton key={index} variant="icon">
-              <Icon size={20} />
-            </NeumorphicButton>
+        <div className="flex justify-center gap-4 mb-6">
+          {[Github, Linkedin, Mail, ExternalLink].map((Icon, i) => (
+            <motion.a
+              key={i}
+              href="#"
+              whileHover={{ y: -3 }}
+              className="w-11 h-11 rounded-xl bg-[#7c6ba8] flex items-center justify-center shadow-[4px_4px_8px_rgba(0,0,0,0.25),-4px_-4px_8px_rgba(255,255,255,0.06)] hover:shadow-[6px_6px_12px_rgba(0,0,0,0.3),-6px_-6px_12px_rgba(255,255,255,0.08)] transition-shadow"
+            >
+              <Icon size={18} className="text-white/80" />
+            </motion.a>
           ))}
         </div>
 
         {/* Footer */}
         <div className="text-center py-6">
-          <p className="text-white/50 text-sm">
-            CREATED BY <span className="text-purple-300 font-medium">YOUR NAME</span>
+          <p className="text-white/40 text-[10px] tracking-[0.2em] uppercase">
+            Created by <span className="text-[#c4b5fd] font-semibold">Your Name</span>
           </p>
         </div>
       </div>
