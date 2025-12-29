@@ -11,7 +11,6 @@ export const themes = [
   { id: "dark", name: "Dark", description: "Easy on the eyes" },
   { id: "optimus", name: "Optimus Prime", description: "Heroic red & blue" },
   { id: "bumblebee", name: "Bumblebee", description: "Energetic yellow & black" },
-  { id: "space", name: "Space", description: "Neumorphic purple cosmos" },
 ] as const
 
 export type ThemeId = (typeof themes)[number]["id"]
@@ -32,7 +31,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
 
   return (
     <NextThemesProvider
-      themes={["system", "light", "dark", "optimus", "bumblebee", "space"]}
+      themes={["system", "light", "dark", "optimus", "bumblebee"]}
       {...props}
     >
       {children}

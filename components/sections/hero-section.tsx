@@ -94,7 +94,7 @@ export default function HeroSection() {
                 <TransformingButton href="#contact" variant="secondary" className="w-36">
                   Contact Me
                 </TransformingButton>
-                <Link href="/simple">
+                <Link href="/space">
                   <motion.button
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}

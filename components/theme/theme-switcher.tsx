@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useTheme } from "next-themes"
 import { motion, AnimatePresence } from "framer-motion"
-import { Sun, Moon, Monitor, Sparkles, Zap, Rocket } from "lucide-react"
+import { Sun, Moon, Monitor, Sparkles, Zap } from "lucide-react"
 
 const themes = [
   { 
@@ -45,14 +45,6 @@ const themes = [
     color: "bg-yellow-400",
     gradient: "from-yellow-300 to-yellow-500",
     description: "Energetic"
-  },
-  { 
-    id: "space", 
-    name: "Space", 
-    icon: Rocket,
-    color: "bg-purple-500",
-    gradient: "from-purple-400 to-indigo-600",
-    description: "Cosmic vibes"
   },
 ]
 
